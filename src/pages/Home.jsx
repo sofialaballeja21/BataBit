@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getData } from "../utils/getData";
 
+// Importamos los componentes de Material UI
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+
 export function Home() {
     const [data, setData] = useState(null); 
     const [loading, setLoading] = useState(true);  
@@ -25,24 +32,44 @@ export function Home() {
 
     return (
         <div className="Home">
-            <h1>BataBit Home</h1>
             <div className="card">
                 <ul>
                     {error && <li>ERROR: {error}</li>} 
                     {loading && <li>Loading...</li>} 
-                    {!loading && data && data.slice(0, 20).map((exchange) => (  
-                        <div key={exchange.exchange_id}>                              
-                            <div className={`rounded-lg ${loading ? 'loading-class' : 'loaded-class'}`}>
-                                <strong>{exchange.name}</strong>
-                                <p>{exchange.website}</p>
-                                <p>{exchange.data_quote_start}</p>
-                                <p>{exchange.data_trade_end}</p>
-                            </div>   
-                        </div>
-                    ))}
+                    {!loading && data && (
+                        <Grid container spacing={2}>  
+                            {data.slice(0, 21).map((exchange) => (  
+                                <Grid item xs={12} sm={6} md={4} key={exchange.exchange_id}> 
+                                    <Card sx={{ maxWidth: 345 }}>
+                                        <CardMedia
+                                            component="img"
+                                            height="40"
+                                            image="src/assets/img/logo.svg" 
+                                            alt={exchange.name}
+                                        />
+                                        <CardContent>
+                                            
+                                            <Typography gutterBottom variant="h3" component="div">
+                                                {exchange.name}  
+                                            </Typography>
+                                            <Typography variant="h6" color="bg-black">
+                                                Sitio Web: <a href={exchange.website}>{exchange.website}</a>  
+                                            </Typography>
+                                            <Typography variant="h6" color="bg-black">
+                                                Fecha inicio de cotización: {exchange.data_quote_start} 
+                                            </Typography>
+                                            <Typography variant="h6" color="bg-black">
+                                                Fecha fin de comercio: {exchange.data_trade_end} 
+                                            </Typography>
+                                          
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    )}
                 </ul>
             </div>
         </div>
     );
 }
-
