@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getData } from "../utils/getData";
 
-// Importamos los componentes de Material UI
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -41,12 +41,7 @@ export function Home() {
                             {data.slice(0, 21).map((exchange) => (  
                                 <Grid item xs={12} sm={6} md={4} key={exchange.exchange_id}> 
                                     <Card sx={{ maxWidth: 345 }}>
-                                        <CardMedia
-                                            component="img"
-                                            height="40"
-                                            image="src/assets/img/logo.svg" 
-                                            alt={exchange.name}
-                                        />
+                                        
                                         <CardContent>
                                             
                                             <Typography gutterBottom variant="h3" component="div">
